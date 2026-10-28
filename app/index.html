@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07110b">
+<title>Forex Pro</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #07110b;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.logo {
+    color: #20e878;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #a8b8ae;
+    font-size: 14px;
+}
+
+.card {
+    background: #101d15;
+    border: 1px solid #234631;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+h2 {
+    color: #20e878;
+    font-size: 19px;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin: 14px 0 7px;
+    color: #d6e4da;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    background: #07110b;
+    color: white;
+    border: 1px solid #365b43;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 16px;
+    background: #20e878;
+    color: #07110b;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 9px;
+}
+
+.result {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #07110b;
+    color: #20e878;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    color: #8b9b90;
+    font-size: 12px;
+    padding: 15px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">FOREX PRO</div>
+    <p class="subtitle">Learn • Analyze • Manage Risk</p>
+</header>
+
+<section class="card">
+    <h2>📊 Chart Analysis Notes</h2>
+
+    <label>Currency Pair</label>
+    <input id="pair" placeholder="EURUSD">
+
+    <label>Timeframe</label>
+    <select id="timeframe">
+        <option>H4</option>
+        <option>H1</option>
+        <option>D1</option>
+        <option>M30</option>
+        <option>M15</option>
+    </select>
+
+    <label>Trend</label>
+    <select id="trend">
+        <option>Unsure</option>
+        <option>Uptrend</option>
+        <option>Downtrend</option>
+        <option>Sideways</option>
+    </select>
+
+    <label>Support Level (optional)</label>
+    <input id="support" type="number" step="any" placeholder="e.g. 1.08000">
+
+    <label>Resistance Level (optional)</label>
+    <input id="resistance" type="number" step="any" placeholder="e.g. 1.09000">
+
+    <button onclick="saveNotes()">Save Analysis Notes</button>
+    <div id="notesResult" class="result" hidden></div>
+</section>
+
+<section class="card">
+    <h2>🛡️ Risk-to-Reward Calculator</h2>
+
+    <label>Entry Price</label>
+    <input id="entry" type="number" step="any" placeholder="Entry price">
+
+    <label>Stop Loss Price</label>
+    <input id="sl" type="number" step="any" placeholder="Stop Loss">
+
+    <label>Take Profit Price</label>
+    <input id="tp" type="number" step="any" placeholder="Take Profit">
+
+    <button onclick="calculateRR()">Calculate R:R</button>
+    <div id="rrResult" class="result" hidden></div>
+</section>
+
+<section class="card">
+    <h2>💰 Risk Calculator</h2>
+
+    <label>Account Balance ($)</label>
+    <input id="balance" type="number" min="0" step="any" placeholder="e.g. 100">
+
+    <label>Risk Percentage (%)</label>
+    <input id="riskPercent" type="number" min="0" max="100" step="any" value="1">
+
+    <button onclick="calculateRisk()">Calculate Risk</button>
+    <div id="riskResult" class="result" hidden></div>
+</section>
+
+<footer>
+    Forex Pro • Educational Tool Only<br>
+    No live market data or guaranteed signals.
+</footer>
+
+<script>
+function value(id) {
+    return document.getElementById(id).value.trim();
+}
+
+function saveNotes() {
+    const pair = value("pair") || "Not entered";
+    const timeframe = value("timeframe");
+    const trend = value("trend");
+    const support = value("support") || "Not entered";
+    const resistance = value("resistance") || "Not entered";
+
+    const result = document.getElementById("notesResult");
+    result.hidden = false;
+    result.innerHTML =
+        "<b>Analysis Notes</b><br>" +
+        "Pair: " + pair + "<br>" +
+        "Timeframe: " + timeframe + "<br>" +
+        "Trend: " + trend + "<br>" +
+        "Support: " + support + "<br>" +
+        "Resistance: " + resistance;
+}
+
+function calculateRR() {
+    const entry = Number(value("entry"));
+    const sl = Number(value("sl"));
+    const tp = Number(value("tp"));
+    const result = document.getElementById("rrResult");
+    result.hidden = false;
+
+    if (!value("entry") || !value("sl") || !value("tp") ||
+        !Number.isFinite(entry) || !Number.isFinite(sl) ||
+        !Number.isFinite(tp) || entry === sl || entry === tp) {
+        result.textContent = "Enter valid, different Entry, SL and TP prices.";
+        return;
+    }
+
+    const risk = Math.abs(entry - sl);
+    const reward = Math.abs(tp - entry);
+
+    result.textContent =
+        "Risk distance: " + risk.toFixed(5) +
+        " | Reward distance: " + reward.toFixed(5) +
+        " | R:R = 1:" + (reward / risk).toFixed(2);
+}
+
+function calculateRisk() {
+    const balanceText = value("balance");
+    const percentText = value("riskPercent");
+    const balance = Number(balanceText);
+    const percent = Number(percentText);
+    const result = document.getElementById("riskResult");
+    result.hidden = false;
+
+    if (!balanceText || !percentText ||
+        !Number.isFinite(balance) || !Number.isFinite(percent) ||
+        balance <= 0 || percent <= 0 || percent > 100) {
+        result.textContent = "Enter a positive balance and risk from 0 to 100%.";
+        return;
+    }
+
+    result.textContent =
+        "Planned risk: $" + (balance * percent / 100).toFixed(2);
+}
+</script>
+
+</body>
+</html>
