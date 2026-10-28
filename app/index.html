@@ -2,238 +2,143 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07110b">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#080d0a">
 <title>Forex Pro</title>
-
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 20px;
-    background: #07110b;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-header {
-    text-align: center;
-    padding: 20px 0;
-}
-
-.logo {
-    color: #20e878;
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.subtitle {
-    color: #a8b8ae;
-    font-size: 14px;
-}
-
-.card {
-    background: #101d15;
-    border: 1px solid #234631;
-    border-radius: 15px;
-    padding: 18px;
-    margin-bottom: 18px;
-}
-
-h2 {
-    color: #20e878;
-    font-size: 19px;
-    margin-top: 0;
-}
-
-label {
-    display: block;
-    margin: 14px 0 7px;
-    color: #d6e4da;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    background: #07110b;
-    color: white;
-    border: 1px solid #365b43;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 16px;
-    background: #20e878;
-    color: #07110b;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    border-radius: 9px;
-}
-
-.result {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    background: #07110b;
-    color: #20e878;
-    overflow-wrap: anywhere;
-}
-
-footer {
-    text-align: center;
-    color: #8b9b90;
-    font-size: 12px;
-    padding: 15px 0;
-}
+:root{--bg:#080d0a;--panel:#111a14;--green:#24ed83;--muted:#91a397;--line:#26392d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f3f8f4;font:15px Arial,sans-serif;padding-bottom:85px}
+header{padding:24px 18px 18px;background:linear-gradient(145deg,#13281b,#080d0a);border-bottom:1px solid var(--line)}
+.brand{font-size:25px;font-weight:900;letter-spacing:1px}.brand span{color:var(--green)}
+.tag{color:var(--muted);font-size:12px;margin-top:6px}
+.pill{display:inline-block;color:var(--green);border:1px solid #28563a;border-radius:20px;padding:6px 10px;font-size:11px;margin-top:15px}
+main{padding:16px;max-width:650px;margin:auto}
+.page{display:none}.page.active{display:block}
+h2{font-size:19px;margin:4px 0 14px}
+h3{font-size:14px;margin:0 0 8px}
+.muted{color:var(--muted);font-size:12px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:12px}
+.stat strong{display:block;color:var(--green);font-size:20px;margin:8px 0}
+.stat small{color:var(--muted)}
+.icon{font-size:22px;margin-bottom:8px}
+button,.nav button{cursor:pointer;font-weight:bold}
+.btn{width:100%;border:0;border-radius:10px;padding:13px;background:var(--green);color:#07110b;font-size:14px;margin-top:12px}
+.secondary{background:#1b2a20;color:var(--green);border:1px solid #31533d}
+label{display:block;color:#c4d2c8;font-size:13px;margin:13px 0 6px}
+input,select,textarea{width:100%;padding:12px;background:#080f0a;color:white;border:1px solid #304636;border-radius:9px;font-size:15px}
+textarea{min-height:75px;resize:vertical}
+.result{margin-top:12px;padding:12px;background:#08140c;border:1px solid #21432d;border-radius:9px;color:var(--green);line-height:1.7;overflow-wrap:anywhere}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#0d1510;border-top:1px solid var(--line);padding:8px 2px calc(8px + env(safe-area-inset-bottom));z-index:5}
+.nav button{background:transparent;color:var(--muted);border:0;padding:6px 2px;font-size:10px;flex:1}
+.nav button span{display:block;font-size:19px;margin-bottom:4px}
+.nav button.active{color:var(--green)}
+.note{border-bottom:1px solid var(--line);padding:12px 0;overflow-wrap:anywhere}
+.note:last-child{border:0}
+footer{text-align:center;color:#65776a;font-size:11px;padding:18px}
 </style>
 </head>
-
 <body>
-
 <header>
-    <div class="logo">FOREX PRO</div>
-    <p class="subtitle">Learn • Analyze • Manage Risk</p>
+ <div class="brand">FOREX <span>PRO</span></div>
+ <div class="tag">LEARN • ANALYZE • MANAGE RISK</div>
+ <div class="pill">● EDUCATION MODE</div>
 </header>
-
-<section class="card">
-    <h2>📊 Chart Analysis Notes</h2>
-
-    <label>Currency Pair</label>
-    <input id="pair" placeholder="EURUSD">
-
-    <label>Timeframe</label>
-    <select id="timeframe">
-        <option>H4</option>
-        <option>H1</option>
-        <option>D1</option>
-        <option>M30</option>
-        <option>M15</option>
-    </select>
-
-    <label>Trend</label>
-    <select id="trend">
-        <option>Unsure</option>
-        <option>Uptrend</option>
-        <option>Downtrend</option>
-        <option>Sideways</option>
-    </select>
-
-    <label>Support Level (optional)</label>
-    <input id="support" type="number" step="any" placeholder="e.g. 1.08000">
-
-    <label>Resistance Level (optional)</label>
-    <input id="resistance" type="number" step="any" placeholder="e.g. 1.09000">
-
-    <button onclick="saveNotes()">Save Analysis Notes</button>
-    <div id="notesResult" class="result" hidden></div>
+<main>
+<section class="page active" id="home">
+ <h2>Welcome to Forex Pro</h2>
+ <p class="muted">Your personal workspace for learning, planning and reviewing trades.</p>
+ <div class="grid">
+  <div class="stat"><div class="icon">🛡️</div><small>Risk Calculator</small><strong>Risk</strong><button class="btn" onclick="showPage('risk')">Open tool</button></div>
+  <div class="stat"><div class="icon">⚖️</div><small>Risk / Reward</small><strong>R:R</strong><button class="btn" onclick="showPage('rr')">Open tool</button></div>
+  <div class="stat"><div class="icon">📊</div><small>Chart Notes</small><strong>Analysis</strong><button class="btn" onclick="showPage('analysis')">Open notes</button></div>
+  <div class="stat"><div class="icon">📒</div><small>Saved records</small><strong id="noteCount">0</strong><button class="btn" onclick="showPage('journal')">Open journal</button></div>
+ </div>
+ <div class="card"><h3>⚠️ Trade safely</h3><p class="muted">Plan your risk before considering a trade. Calculators are educational and do not predict market direction or guarantee profits.</p></div>
 </section>
 
-<section class="card">
-    <h2>🛡️ Risk-to-Reward Calculator</h2>
-
-    <label>Entry Price</label>
-    <input id="entry" type="number" step="any" placeholder="Entry price">
-
-    <label>Stop Loss Price</label>
-    <input id="sl" type="number" step="any" placeholder="Stop Loss">
-
-    <label>Take Profit Price</label>
-    <input id="tp" type="number" step="any" placeholder="Take Profit">
-
-    <button onclick="calculateRR()">Calculate R:R</button>
-    <div id="rrResult" class="result" hidden></div>
+<section class="page" id="risk">
+ <h2>🛡️ Risk Calculator</h2><p class="muted">Calculate how much of your account you plan to risk.</p>
+ <div class="card">
+  <label>Account balance ($)</label><input id="balance" type="number" min="0" step="any" placeholder="e.g. 100">
+  <label>Risk percentage (%)</label><input id="riskPercent" type="number" min="0.01" max="100" step="any" value="1">
+  <button class="btn" onclick="calculateRisk()">Calculate planned risk</button>
+  <div class="result" id="riskResult" hidden></div>
+ </div>
+ <div class="card"><h3>Remember</h3><p class="muted">A calculation is not a recommendation to trade. Even a planned risk can result in a larger loss because of slippage or gaps.</p></div>
 </section>
 
-<section class="card">
-    <h2>💰 Risk Calculator</h2>
-
-    <label>Account Balance ($)</label>
-    <input id="balance" type="number" min="0" step="any" placeholder="e.g. 100">
-
-    <label>Risk Percentage (%)</label>
-    <input id="riskPercent" type="number" min="0" max="100" step="any" value="1">
-
-    <button onclick="calculateRisk()">Calculate Risk</button>
-    <div id="riskResult" class="result" hidden></div>
+<section class="page" id="rr">
+ <h2>⚖️ Risk-to-Reward</h2><p class="muted">Compare the distance to your stop loss and target.</p>
+ <div class="card">
+  <label>Trade direction</label><select id="direction"><option value="buy">Buy / Long</option><option value="sell">Sell / Short</option></select>
+  <label>Entry price</label><input id="entry" type="number" step="any" placeholder="Entry price">
+  <label>Stop loss price</label><input id="sl" type="number" step="any" placeholder="Stop loss">
+  <label>Take profit price</label><input id="tp" type="number" step="any" placeholder="Take profit">
+  <button class="btn" onclick="calculateRR()">Calculate R:R</button>
+  <div class="result" id="rrResult" hidden></div>
+ </div>
 </section>
 
-<footer>
-    Forex Pro • Educational Tool Only<br>
-    No live market data or guaranteed signals.
-</footer>
+<section class="page" id="analysis">
+ <h2>📊 Chart Analysis Notes</h2><p class="muted">Record your own chart observations for later review.</p>
+ <div class="card">
+  <label>Currency pair</label><input id="pair" placeholder="e.g. EURUSD">
+  <label>Timeframe</label><select id="timeframe"><option>H4</option><option>H1</option><option>D1</option><option>M30</option><option>M15</option><option>M5</option></select>
+  <label>Trend</label><select id="trend"><option>Unsure</option><option>Uptrend</option><option>Downtrend</option><option>Sideways</option></select>
+  <label>Support level (optional)</label><input id="support" type="number" step="any" placeholder="Support price">
+  <label>Resistance level (optional)</label><input id="resistance" type="number" step="any" placeholder="Resistance price">
+  <label>Observations</label><textarea id="observations" placeholder="What do you notice on the chart?"></textarea>
+  <button class="btn" onclick="saveNotes()">Save analysis</button>
+  <div class="result" id="notesResult" hidden></div>
+ </div>
+</section>
+
+<section class="page" id="journal">
+ <h2>📒 Trading Journal</h2><p class="muted">Your saved analysis notes stay on this device.</p>
+ <div class="card"><div id="journalList"><p class="muted">No saved notes yet.</p></div><button class="btn secondary" onclick="showPage('analysis')">＋ Add analysis note</button></div>
+</section>
+
+<section class="page" id="settings">
+ <h2>⚙️ Settings & About</h2>
+ <div class="card"><h3>Forex Pro</h3><p class="muted">Version 1.1 • Educational tool</p><p class="muted">This app does not provide live market prices, verified trading signals or financial advice.</p><button class="btn secondary" onclick="clearNotes()">Clear saved notes</button><div id="settingsResult" class="result" hidden></div></div>
+</section>
+</main>
+
+<nav class="nav">
+ <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Home</button>
+ <button data-page="analysis" onclick="showPage('analysis')"><span>📊</span>Analysis</button>
+ <button data-page="risk" onclick="showPage('risk')"><span>🛡️</span>Risk</button>
+ <button data-page="journal" onclick="showPage('journal')"><span>📒</span>Journal</button>
+ <button data-page="settings" onclick="showPage('settings')"><span>⚙️</span>Settings</button>
+</nav>
+<footer>FOREX PRO • Learn first. Manage risk.</footer>
 
 <script>
-function value(id) {
-    return document.getElementById(id).value.trim();
+function el(id){return document.getElementById(id)}
+function val(id){return el(id).value.trim()}
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo(0,0);
+ if(id==='journal')renderNotes();
 }
-
-function saveNotes() {
-    const pair = value("pair") || "Not entered";
-    const timeframe = value("timeframe");
-    const trend = value("trend");
-    const support = value("support") || "Not entered";
-    const resistance = value("resistance") || "Not entered";
-
-    const result = document.getElementById("notesResult");
-    result.hidden = false;
-    result.innerHTML =
-        "<b>Analysis Notes</b><br>" +
-        "Pair: " + pair + "<br>" +
-        "Timeframe: " + timeframe + "<br>" +
-        "Trend: " + trend + "<br>" +
-        "Support: " + support + "<br>" +
-        "Resistance: " + resistance;
+function calculateRisk(){
+ const b=Number(val('balance')),p=Number(val('riskPercent')),r=el('riskResult');
+ r.hidden=false;
+ if(!val('balance')||!val('riskPercent')||!Number.isFinite(b)||!Number.isFinite(p)||b<=0||p<=0||p>100){r.textContent='Enter a positive balance and a risk percentage above 0 and at most 100.';return}
+ r.textContent='Planned risk: $'+(b*p/100).toFixed(2)+' ('+p+'% of account).';
 }
-
-function calculateRR() {
-    const entry = Number(value("entry"));
-    const sl = Number(value("sl"));
-    const tp = Number(value("tp"));
-    const result = document.getElementById("rrResult");
-    result.hidden = false;
-
-    if (!value("entry") || !value("sl") || !value("tp") ||
-        !Number.isFinite(entry) || !Number.isFinite(sl) ||
-        !Number.isFinite(tp) || entry === sl || entry === tp) {
-        result.textContent = "Enter valid, different Entry, SL and TP prices.";
-        return;
-    }
-
-    const risk = Math.abs(entry - sl);
-    const reward = Math.abs(tp - entry);
-
-    result.textContent =
-        "Risk distance: " + risk.toFixed(5) +
-        " | Reward distance: " + reward.toFixed(5) +
-        " | R:R = 1:" + (reward / risk).toFixed(2);
+function calculateRR(){
+ const e=Number(val('entry')),s=Number(val('sl')),t=Number(val('tp')),d=val('direction'),r=el('rrResult');r.hidden=false;
+ if(!val('entry')||!val('sl')||!val('tp')||![e,s,t].every(Number.isFinite)||e<=0||s<=0||t<=0){r.textContent='Enter three valid positive prices.';return}
+ if((d==='buy'&&(s>=e||t<=e))||(d==='sell'&&(s<=e||t>=e))){r.textContent='Prices do not match the selected trade direction. Check entry, stop loss and take profit.';return}
+ const risk=Math.abs(e-s),reward=Math.abs(t-e);
+ r.textContent='Risk distance: '+risk.toFixed(5)+' | Reward distance: '+reward.toFixed(5)+' | R:R = 1:'+(reward/risk).toFixed(2);
 }
-
-function calculateRisk() {
-    const balanceText = value("balance");
-    const percentText = value("riskPercent");
-    const balance = Number(balanceText);
-    const percent = Number(percentText);
-    const result = document.getElementById("riskResult");
-    result.hidden = false;
-
-    if (!balanceText || !percentText ||
-        !Number.isFinite(balance) || !Number.isFinite(percent) ||
-        balance <= 0 || percent <= 0 || percent > 100) {
-        result.textContent = "Enter a positive balance and risk from 0 to 100%.";
-        return;
-    }
-
-    result.textContent =
-        "Planned risk: $" + (balance * percent / 100).toFixed(2);
-}
-</script>
-
-</body>
-</html>
+function getNotes(){try{return JSON.parse(localStorage.getItem('forexProNotes')||'[]')}catch(e){return []}}
+function saveNotes(){
+ const note={id:Date.now(),pair:val('pair')||'Not entered',timeframe:val('timeframe'),trend:val('trend'),support:val('support')||'Not entered',resistance:val('resistance')||'Not entered',observations:val('observations'),date:new Date().toLocaleString()};
+ const notes=getNotes();notes.unshift(note);
+ try{localStorage.setItem('forexProNotes',JSON.stringify(notes));el('notesResult').hidden=false;el('notesResult').textContent='Analysis saved on this
